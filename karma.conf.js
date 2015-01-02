@@ -7,8 +7,7 @@ module.exports = function(config){
       'src/components/angular/angular.js',
       'src/components/angular-mocks/angular-mocks.js',
       'src/components/jquery/dist/jquery.min.js',
-      'src/js/test/*.js',
-      'src/js/*.js'
+      'src/js/test/*.js'
     ],
 
     autoWatch : true,

@@ -2,7 +2,7 @@
     "name": "thirai-server",
     "version": "0.0.1",
     "description": "Server",
-    "main": "server.js",
+    "main": "src/js/server.js",
     "scripts": {
         "postinstall": "./node_modules/bower/bin/bower install",
         "test": "node_modules/karma/bin/karma start karma.conf.js",
