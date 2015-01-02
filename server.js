@@ -2,7 +2,6 @@ var express = require('express');
 var cors = require('cors');
 var http = require('http');
 var movieService = require('./src/js/movieService.js');
-var mongoose = require('mongoose');
 var MongoClient = require('mongodb').MongoClient;
 
 var app = express();
