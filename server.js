@@ -15,23 +15,28 @@ app.use(cors());
 app.get('/movies*', function(request, response, next) {
     var url = 'mongodb://localhost/movies';
     MongoClient.connect(url, function(err, db) {
-        findDocuments(db, function() {
+
+        db.collection('movies').find({}).toArray(function(err, movies) {
+            console.log("Data fetched...", movies[0].name);
+            //response.send(movies);
             db.close();
         });
-    });
 
-    var findDocuments = function(db, callback) {
-        var movies = db.collection('movies');
-        movies.find({}).toArray(function(err, docs) {
-            callback(docs);
-        });
-    }
+        var movies = {
+            'movies': [{
+                'name': 'abc1',
+                'rating': 1,
+                'director': 'Mayur'
+            }, {
+                'name': 'abc2',
+                'rating': 1,
+                'director': 'Arunan'
+            }]
+        };
 
-    if (request.url.toLowerCase().indexOf("movies/details") <= 0) {
+        console.log("movies", JSON.stringify(movies));
         response.send(movies);
-    } else {
-        response.send(movieDetails);
-    }
+    });
 });
 
 // all requests for movie data is routed through the nodejs application.
@@ -48,29 +53,27 @@ app.get('/dbsetup', function(request, response, next) {
 
     var insertDocuments = function(db, callback) {
         var collection = db.collection('movies');
-        collection.insert({
-            "movies": [{
-                "name": "abc1",
-                "rating": 1,
-                "director": "Mayur"
-            }, {
-                "name": "abc2",
-                "rating": 1,
-                "director": "Arunan"
-            }, {
-                "name": "abc3",
-                "rating": 1,
-                "director": "Arunan"
-            }, {
-                "name": "abc4",
-                "rating": 1,
-                "director": "Arunan"
-            }, {
-                "name": "abc5",
-                "rating": 1,
-                "director": "Arunan"
-            }]
-        }, function(err, result) {
+        collection.insert([{
+            "name": "abc1",
+            "rating": 1,
+            "director": "Mayur"
+        }, {
+            "name": "abc2",
+            "rating": 1,
+            "director": "Arunan"
+        }, {
+            "name": "abc3",
+            "rating": 1,
+            "director": "Arunan"
+        }, {
+            "name": "abc4",
+            "rating": 1,
+            "director": "Arunan"
+        }, {
+            "name": "abc5",
+            "rating": 1,
+            "director": "Arunan"
+        }], function(err, result) {
             console.log("Inserted movies into the document collection");
             callback(result);
         });
